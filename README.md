@@ -1,0 +1,1 @@
+Desarrollar una plataforma de salud mental que brinde a los estudiantes una experiencia inmersiva a través de historias interactivas generadas por inteligencia artificial, permitiendo la interpretación de sus decisiones y el análisis de su comportamiento para facilitar la detección temprana de riesgos psicológicos por parte de psicólogos y docentes.
