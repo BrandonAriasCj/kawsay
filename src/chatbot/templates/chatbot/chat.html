@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat con IA</title>
+  <link rel="stylesheet" href="{% static 'chatbot/style.css' %}">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>🌇 KawsAI - Historias Interactivas</h2>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <!-- Mensajes aparecen aquí -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Escribe tu mensaje..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
+  <script src="{% static 'chatbot/script.js' %}"></script>
+</body>
+</html>
