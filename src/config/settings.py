@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'gestion',
     'chatbot',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +87,17 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Token de acceso expira en 30 minutos
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Token de refresco expira en 7 días
+    'ROTATE_REFRESH_TOKENS': True,  # Genera un nuevo refresh token en cada solicitud
+    'BLACKLIST_AFTER_ROTATION': True,  # Invalida el refresh token anterior
+}
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
