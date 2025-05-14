@@ -1,27 +1,8 @@
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from .models import Usuario, Alumno, Psicologo, Preferencias, HistorialPreferencias
+from .models import Usuario
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
-
-class AlumnoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Alumno
-        fields = '__all__'
-
-class PsicologoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Psicologo
-        fields = '__all__'
-
-class PreferenciasSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Preferencias
-        fields = '__all__'
-
-class HistorialPreferenciasSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = HistorialPreferencias
-        fields = '__all__'
+        fields = ['id', 'mail', 'nickname', 'is_active', 'is_admin']

@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-rdivf-ftl992za$&+jhboykdg+fh#*h0unqyt6(izn*g-lb^l9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+import os
+os.environ["PATH"] += os.pathsep + "C:\\sqlite3\\"
+
+
 ALLOWED_HOSTS = []
 
 
@@ -43,6 +47,14 @@ INSTALLED_APPS = [
     'chatbot',
     'usuarios',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -97,6 +109,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,  # Invalida el refresh token anterior
 }
 
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 
 AUTH_PASSWORD_VALIDATORS = [

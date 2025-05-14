@@ -1,3 +1,4 @@
+
 from django.db import models
 from usuarios.models import Usuario
 
@@ -31,3 +32,10 @@ class ContextoHistoria(models.Model):
 
     def __str__(self):
         return f"Contexto de {self.usuario.nickname}"
+    
+class Ejemplo(models.Model):
+    nombre = models.CharField(max_length=100)
+    edad = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.nombre} - {self.edad}"
