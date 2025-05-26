@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-rdivf-ftl992za$&+jhboykdg+fh#*h0unqyt6(izn*g-lb^l9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+import os
+os.environ["PATH"] += os.pathsep + "C:\\sqlite3\\"
+
+
 ALLOWED_HOSTS = []
 
 
@@ -37,9 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'gestion',
     'chatbot',
+    'usuarios',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,6 +99,18 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Token de acceso expira en 30 minutos
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Token de refresco expira en 7 días
+    'ROTATE_REFRESH_TOKENS': True,  # Genera un nuevo refresh token en cada solicitud
+    'BLACKLIST_AFTER_ROTATION': True,  # Invalida el refresh token anterior
+}
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
