@@ -1,0 +1,77 @@
+/* src/theme.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  
+  --primary-color: #6a11cb;
+  --primary-gradient: linear-gradient(to right, #2575fc, #6a11cb);
+  --accent-color: #d946ef; 
+  --accent-orange: #ff8c42;
+
+  
+  --app-bg: #f4f7f6; 
+  --card-bg: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-light: #f8f9fa;
+  --border-color: #e9ecef;
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--app-bg);
+  color: var(--text-primary);
+}
+
+
+/* Tarjetas  */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+}
+
+/* Botones  */
+.btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #c433d8; 
+  border-color: #c433d8;
+  transform: scale(1.02);
+}
+
+.btn-danger {
+  background-color: var(--accent-orange);
+  border-color: var(--accent-orange);
+  font-weight: 600;
+}
+.btn-danger:hover {
+  background-color: #e67e3a;
+  border-color: #e67e3a;
+}
+
+/* Formularios */
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(217, 70, 239, 0.25);
+}
