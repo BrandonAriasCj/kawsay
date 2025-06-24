@@ -1,6 +1,7 @@
 // src/pages/Reportes.jsx
 import React, { useState, useEffect } from 'react';
 import { Form, Card } from 'react-bootstrap';
+import axiosIns from '../services/axiosInstance'
 
 const Reportes = () => {
     const [alumnos, setAlumnos] = useState([]);
@@ -17,6 +18,17 @@ const Reportes = () => {
     };
 
     useEffect(() => { setAlumnos(alumnosSimulados); }, []);
+
+    useEffect(()=>{
+            axiosIns.get(`/api/reportes/all`)
+            .then(response => {
+                setReportes(() => response.data);
+                console.log("asdfasd");
+                console.log(reportes);
+            })
+            .catch(err => console.log(err));
+            console.log("Se ejecuta la seccion del axios")
+    }, []);
 
     const handleAlumnoChange = (e) => {
         const alumnoId = e.target.value;
