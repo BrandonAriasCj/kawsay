@@ -7,6 +7,8 @@ import Reportes from './pages/Reportes.jsx';
 import Horarios from './pages/Horarios.jsx';
 import Alertas from './pages/Alertas.jsx';
 
+
+
 function App() {
   return (
     <Router>
@@ -21,5 +23,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;
