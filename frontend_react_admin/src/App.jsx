@@ -12,18 +12,22 @@ import Alertas from './pages/Alertas.jsx';
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/reportes" element={<Reportes />} />
-          <Route path="/horarios" element={<Horarios />} />
-          <Route path="/alertas" element={<Alertas />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/reportes" element={<Reportes />} />
+            <Route path="/horarios" element={<Horarios />} />
+            <Route path="/alertas" element={<Alertas />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </AuthProvider>
   );
 }
 
 
 export default App;
+

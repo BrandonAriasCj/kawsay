@@ -1,6 +1,8 @@
 // src/pages/Reportes.jsx
 import React, { useState, useEffect } from 'react';
 import { Form, Card } from 'react-bootstrap';
+import instance from '../services/axiosInstance'
+import ReactMarkdown from 'react-markdown';
 
 const Reportes = () => {
     const [alumnos, setAlumnos] = useState([]);
@@ -18,10 +20,26 @@ const Reportes = () => {
 
     useEffect(() => { setAlumnos(alumnosSimulados); }, []);
 
+    useEffect(()=>{
+            instance.get("/reportes/all")
+            .then(response => {
+                setReportes(response.data);
+                console.log("asdfasd");
+                console.log(response.data);
+            })
+            .catch(err => console.log(err));
+            console.log("Se ejecuta la seccion del axios")
+            console.log("Reportes: ", reportes);
+    }, []);
+
+    useEffect(() => {
+        console.log("Reportes actualizados:", reportes);
+    }, [reportes]);
+
     const handleAlumnoChange = (e) => {
         const alumnoId = e.target.value;
         setSelectedAlumno(alumnoId);
-        setReportes(reportesSimulados[alumnoId] || []);
+        setReportes(reportes[alumnoId] || []);
     };
 
     return (
@@ -35,21 +53,34 @@ const Reportes = () => {
                 </Form.Select>
             </Form.Group>
             <hr />
-            {selectedAlumno && (
+            {selectedAlumno ? (
                 <div>
                     <h3>Reportes para {alumnos.find(a => a.id == selectedAlumno)?.nombre}</h3>
                     {reportes.length > 0 ? (
                         reportes.map(reporte => (
-                             <Card key={reporte.id} className="mb-3">
-                                <Card.Header>Reporte del {reporte.fecha}</Card.Header>
+                             <Card key={reporte.id} className="mb-3 px-5 py-3">
+                                <Card.Header>Reporte del {new Date(reporte.timestamp).toLocaleString()}</Card.Header>
                                 <Card.Body>
-                                    <Card.Text>{reporte.resumen}</Card.Text>
+                                    <ReactMarkdown>{reporte.contenido}</ReactMarkdown>
                                 </Card.Body>
                             </Card>
                         ))
                     ) : <p>No hay reportes para este alumno.</p>}
                 </div>
-            )}
+            ): (
+                <div>
+                    {reportes.length > 0 ? (
+                        reportes.map(reporte => (
+                             <Card key={reporte.id} className="mb-3 px-5 py-3">
+                                <Card.Header>Reporte del {new Date(reporte.timestamp).toLocaleString()}</Card.Header>
+                                <Card.Body>
+                                    <ReactMarkdown>{reporte.contenido}</ReactMarkdown>
+                                </Card.Body>
+                            </Card>
+                        ))
+                    ) : <p>No hay reportes en general.</p>}
+                </div>
+            )  }
         </div>
     );
 };
