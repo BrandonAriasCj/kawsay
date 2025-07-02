@@ -4,12 +4,14 @@ import { FaClock, FaEdit, FaVideo, FaMapMarkerAlt } from 'react-icons/fa';
 
 const formatDate = (dateString) => new Date(dateString + 'T00:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const formatTime = (time) => {
-    const [hour, minute] = time.split(':');
-    const h = parseInt(hour);
-    const ampm = h >= 12 ? 'p. m.' : 'a. m.';
-    const formattedHour = h % 12 === 0 ? 12 : h % 12;
-    return `${formattedHour}:${minute} ${ampm}`;
+  if (!time) return '--';
+  const [hour, minute] = time.split(':');
+  const h = parseInt(hour);
+  const ampm = h >= 12 ? 'p. m.' : 'a. m.';
+  const formattedHour = h % 12 === 0 ? 12 : h % 12;
+  return `${formattedHour}:${minute} ${ampm}`;
 };
+
 const getTypeIcon = (type) => type === 'virtual' ? <FaVideo className="text-primary" /> : <FaMapMarkerAlt className="text-success" />;
 
 const ListaCitas = ({ appointments }) => {

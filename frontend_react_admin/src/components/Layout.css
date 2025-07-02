@@ -2,7 +2,8 @@
 
 #sidebar-wrapper {
   min-height: 100vh;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
   background: var(--primary-gradient);
 }
 
@@ -48,4 +49,46 @@
 
 #page-content-wrapper {
   background-color: var(--app-bg);
+}
+
+
+.logout-button {
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  border: none;
+  background-color: transparent;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.logout-wrapper {
+  margin-bottom: 1rem;
+}
+
+.logout-section {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.2s ease-in-out;
+  padding: 1rem 0;
+}
+
+.logout-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
 }

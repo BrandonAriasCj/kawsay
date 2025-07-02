@@ -34,16 +34,16 @@ const Horarios = () => {
     };
     const [newRuleForm, setNewRuleForm] = useState(initialRuleFormState);
     
-    // 2. useEffect ahora usa tu instancia 'api' para cargar datos reales
+
     useEffect(() => {
         const cargarDatos = async () => {
             try {
-                // Llamada para obtener las reglas del psicólogo logueado
-                const reglasResponse = await api.get('/api/horarios-citas/reglas');
+               
+                const reglasResponse = await api.get('/horarios-citas/reglas');
                 setScheduleRules(reglasResponse.data);
 
-                // Llamada para obtener las citas del psicólogo logueado
-                const citasResponse = await api.get('/api/horarios-citas/citas/mis-citas');
+               
+                const citasResponse = await api.get('/horarios-citas/citas/mis-citas');
                 setBookedAppointments(citasResponse.data);
 
             } catch (error) {
@@ -72,7 +72,6 @@ const Horarios = () => {
         setNewRuleForm({ ...newRuleForm, timeSlots: updatedTimeSlots });
     };
 
-    // 3. handleRuleSubmit ahora usa 'api' para enviar la nueva regla al backend
    const handleRuleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,7 +80,7 @@ const Horarios = () => {
             dayOfWeek,
             startTime,
             endTime,
-            modality: modality.toUpperCase() // convertir a VIRTUAL o PRESENCIAL
+            modality: modality.toUpperCase() 
         }));
 
         const payload = {
@@ -93,9 +92,9 @@ const Horarios = () => {
         };
 
         console.log("Enviando payload limpio:", payload);
-        await api.post('/api/horarios-citas/reglas', payload);
+        await api.post('/horarios-citas/reglas', payload);
 
-        const reglasResponse = await api.get('/api/horarios-citas/reglas');
+        const reglasResponse = await api.get('/horarios-citas/reglas');
         setScheduleRules(reglasResponse.data);
 
         setShowRuleModal(false);
@@ -110,7 +109,7 @@ const Horarios = () => {
         setShowRuleModal(true);
     };
 
-    // El JSX no cambia en absoluto. Sigue renderizando basado en los estados.
+    
     return (
         <div className="schedules-container">
             <div className="mb-4">
