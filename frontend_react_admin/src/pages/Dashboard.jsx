@@ -135,33 +135,33 @@ const Dashboard = () => {
     const statsCards = [
         {
             title: 'Estudiantes Monitoreados',
-            value: '163',
+            value: '4',
             icon: <FaBrain className="text-primary" />,
-            change: '+8',
+            change: '+1',
             changeType: 'positive',
             description: 'Activos en el sistema'
         },
         {
             title: 'Alertas de Riesgo',
-            value: '12',
+            value: '0',
             icon: <FaExclamationTriangle className="text-warning" />,
-            change: '-3',
+            change: '+0',
             changeType: 'negative',
             description: 'Requieren atención'
         },
         {
             title: 'Interacciones IA',
-            value: '1,247',
+            value: '504',
             icon: <FaComments className="text-info" />,
-            change: '+156',
+            change: '+11',
             changeType: 'positive',
             description: 'Esta semana'
         },
         {
             title: 'Sesiones Activas',
-            value: '28',
+            value: '1',
             icon: <FaUserFriends className="text-success" />,
-            change: '+5',
+            change: '+0',
             changeType: 'positive',
             description: 'En curso'
         }
@@ -176,30 +176,7 @@ const Dashboard = () => {
             time: '2h',
             riskLevel: 'Moderado'
         },
-        { 
-            id: 2, 
-            student: 'Carlos Ruiz', 
-            message: 'Nuevo contexto de historia generado - tema: aislamiento social', 
-            type: 'info', 
-            time: '4h',
-            riskLevel: 'Leve'
-        },
-        { 
-            id: 3, 
-            student: 'Ana López', 
-            message: 'Mejora significativa en indicadores de bienestar emocional', 
-            type: 'success', 
-            time: '6h',
-            riskLevel: 'Bajo'
-        },
-        { 
-            id: 4, 
-            student: 'Pedro Silva', 
-            message: 'Se requiere intervención inmediata - riesgo alto detectado', 
-            type: 'danger', 
-            time: '8h',
-            riskLevel: 'Alto'
-        }
+
     ];
 
     const activeSessions = [
