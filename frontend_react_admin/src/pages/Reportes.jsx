@@ -1,45 +1,51 @@
-// src/pages/Reportes.jsx
 import React, { useState, useEffect } from 'react';
-import { Form, Card } from 'react-bootstrap';
-import instance from '../services/axiosInstance'
+import { Form, Card, Spinner } from 'react-bootstrap';
+import instance from '../services/axiosInstance';
 import ReactMarkdown from 'react-markdown';
 
 const Reportes = () => {
+    const [todosLosReportes, setTodosLosReportes] = useState([]);
     const [alumnos, setAlumnos] = useState([]);
-    const [selectedAlumno, setSelectedAlumno] = useState(null);
-    const [reportes, setReportes] = useState([]);
-
-    const alumnosSimulados = [
-        { id: 1, nombre: 'Juan Pérez' }, { id: 2, nombre: 'Ana Gómez' }, { id: 3, nombre: 'Pedro Martinez' },
-    ];
-    const reportesSimulados = {
-        1: [{ id: 101, fecha: '2023-10-26', resumen: 'El alumno muestra señales de estrés académico.' }],
-        2: [{ id: 102, fecha: '2023-10-25', resumen: 'Interacción social positiva, sin alertas.' }],
-        3: [{ id: 103, fecha: '2023-10-27', resumen: 'Presenta un posible cuadro de ansiedad, se recomienda seguimiento.'}, { id: 104, fecha: '2023-10-20', resumen: 'Bajo rendimiento en las últimas evaluaciones.'}]
-    };
-
-    useEffect(() => { setAlumnos(alumnosSimulados); }, []);
-
-    useEffect(()=>{
-            instance.get("/reportes/all")
-            .then(response => {
-                setReportes(response.data);
-                console.log("asdfasd");
-                console.log(response.data);
-            })
-            .catch(err => console.log(err));
-            console.log("Se ejecuta la seccion del axios")
-            console.log("Reportes: ", reportes);
-    }, []);
+    const [reportesFiltrados, setReportesFiltrados] = useState([]);
+    const [selectedAlumnoId, setSelectedAlumnoId] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log("Reportes actualizados:", reportes);
-    }, [reportes]);
+        instance.get("/reportes/all")
+            .then(response => {
+                const reportesRecibidos = response.data;
+                setTodosLosReportes(reportesRecibidos);
+                setReportesFiltrados(reportesRecibidos); 
+                const alumnosMap = new Map();
+                reportesRecibidos.forEach(reporte => {
+                    alumnosMap.set(reporte.usuario_id, reporte.nombreAlumno);
+                });
+                
+                const listaAlumnos = Array.from(alumnosMap, ([id, nombre]) => ({ id, nombre }));
+                setAlumnos(listaAlumnos);
+            })
+            .catch(err => console.error("Error al cargar reportes:", err))
+            .finally(() => setIsLoading(false));
+    }, []);
 
     const handleAlumnoChange = (e) => {
         const alumnoId = e.target.value;
-        setSelectedAlumno(alumnoId);
-        setReportes(reportes[alumnoId] || []);
+        setSelectedAlumnoId(alumnoId);
+
+        if (alumnoId) {
+      
+            const filtrados = todosLosReportes.filter(reporte => reporte.usuario_id === alumnoId);
+            setReportesFiltrados(filtrados);
+        } else {
+          
+            setReportesFiltrados(todosLosReportes);
+        }
+    };
+
+    const getNombreAlumnoSeleccionado = () => {
+        if (!selectedAlumnoId) return '';
+        const alumno = alumnos.find(a => a.id === selectedAlumnoId);
+        return alumno ? alumno.nombre : '';
     };
 
     return (
@@ -47,41 +53,42 @@ const Reportes = () => {
             <h1>Resúmenes de Reportes de IA por Alumno</h1>
             <Form.Group className="mb-3">
                 <Form.Label>Seleccione un Alumno</Form.Label>
-                <Form.Select onChange={handleAlumnoChange}>
-                    <option>Elige un alumno...</option>
-                    {alumnos.map(alumno => (<option key={alumno.id} value={alumno.id}>{alumno.nombre}</option>))}
+                <Form.Select onChange={handleAlumnoChange} value={selectedAlumnoId}>
+                    <option value="">Todos los Alumnos</option>
+                    {alumnos.map(alumno => (
+                        <option key={alumno.id} value={alumno.id}>{alumno.nombre}</option>
+                    ))}
                 </Form.Select>
             </Form.Group>
             <hr />
-            {selectedAlumno ? (
+
+            {isLoading ? (
+                <div className="text-center"><Spinner animation="border" /></div>
+            ) : (
                 <div>
-                    <h3>Reportes para {alumnos.find(a => a.id == selectedAlumno)?.nombre}</h3>
-                    {reportes.length > 0 ? (
-                        reportes.map(reporte => (
-                             <Card key={reporte.id} className="mb-3 px-5 py-3">
-                                <Card.Header>Reporte del {new Date(reporte.timestamp).toLocaleString()}</Card.Header>
+                    <h3>
+                        {selectedAlumnoId ? `Reportes para ${getNombreAlumnoSeleccionado()}` : 'Todos los Reportes'}
+                    </h3>
+                    {reportesFiltrados.length > 0 ? (
+                        reportesFiltrados.map(reporte => (
+                             <Card key={reporte.id} className="mb-3">
+                                <Card.Header>
+                                    {}
+                                    <strong>{`Reporte para ${reporte.nombreAlumno}`}</strong>
+                                    <span className="text-muted float-end">
+                                        {new Date(reporte.timestamp).toLocaleString('es-ES')}
+                                    </span>
+                                </Card.Header>
                                 <Card.Body>
                                     <ReactMarkdown>{reporte.contenido}</ReactMarkdown>
                                 </Card.Body>
                             </Card>
                         ))
-                    ) : <p>No hay reportes para este alumno.</p>}
+                    ) : <p>No se encontraron reportes.</p>}
                 </div>
-            ): (
-                <div>
-                    {reportes.length > 0 ? (
-                        reportes.map(reporte => (
-                             <Card key={reporte.id} className="mb-3 px-5 py-3">
-                                <Card.Header>Reporte del {new Date(reporte.timestamp).toLocaleString()}</Card.Header>
-                                <Card.Body>
-                                    <ReactMarkdown>{reporte.contenido}</ReactMarkdown>
-                                </Card.Body>
-                            </Card>
-                        ))
-                    ) : <p>No hay reportes en general.</p>}
-                </div>
-            )  }
+            )}
         </div>
     );
 };
+
 export default Reportes;
