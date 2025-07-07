@@ -72,9 +72,6 @@ const ListaCitas = ({ appointments }) => {
                                     </div>
                                 </Col>
                                 
-                                <Col md={1} className="text-end">
-                                    <Button variant="outline-primary" size="sm"><FaEdit /></Button>
-                                </Col>
                             </Row>
                         </ListGroup.Item>
                     )) : (

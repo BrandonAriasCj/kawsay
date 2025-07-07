@@ -6,7 +6,7 @@ const LogoutButton = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('jwtToken');
     localStorage.removeItem('jwtToken');
-    window.location.href = 'http://localhost:5173/login'; // URL del login de Spring
+    window.location.href = 'http://localhost:5173/login'; 
   };
 
   return (
