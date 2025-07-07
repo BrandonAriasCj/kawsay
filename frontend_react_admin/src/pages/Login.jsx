@@ -23,7 +23,7 @@ const LoggedInHandler = ({ user, signOut }) => {
     (async () => {
       try {
         const user = await getCurrentUser();
-        const token = (await fetchAuthSession()).tokens?.idToken?.toString();
+        const token = (await fetchAuthSession()).tokens?.accessToken?.toString();
 
         if (!user || !token) return console.warn("⚠️ Falta usuario o token");
 
