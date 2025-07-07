@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
     { to: "/", icon: <FaTachometerAlt />, text: "Dashboard" },
     { to: "/reportes", icon: <FaFileAlt />, text: "Reportes por Alumno" },
     { to: "/horarios", icon: <FaCalendarAlt />, text: "Gestionar Horarios" },
-    { to: "/alertas", icon: <FaExclamationTriangle />, text: "Enviar Alertas" },
+  
     { to: "/perfil", icon: <FaUserEdit />, text: "Mi Perfil" },
   ];
 

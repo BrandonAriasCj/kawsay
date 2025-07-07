@@ -5,7 +5,6 @@ import Layout from './components/Layout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Reportes from './pages/Reportes.jsx';
 import Horarios from './pages/Horarios.jsx';
-import Alertas from './pages/Alertas.jsx';
 import MiPerfil from './pages/MiPerfil.jsx';
 
 
@@ -19,7 +18,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/reportes" element={<Reportes />} />
           <Route path="/horarios" element={<Horarios />} />
-          <Route path="/alertas" element={<Alertas />} />
+          
           <Route path="/perfil" element={<MiPerfil />} /> 
         </Routes>
       </Layout>
