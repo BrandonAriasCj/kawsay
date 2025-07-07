@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import './Layout.css';
-import { FaTachometerAlt, FaFileAlt, FaCalendarAlt, FaExclamationTriangle, FaSignOutAlt } from 'react-icons/fa';
+import { FaTachometerAlt, FaFileAlt, FaCalendarAlt, FaExclamationTriangle, FaSignOutAlt, FaUserEdit  } from 'react-icons/fa';
+
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const Layout = ({ children }) => {
     { to: "/reportes", icon: <FaFileAlt />, text: "Reportes por Alumno" },
     { to: "/horarios", icon: <FaCalendarAlt />, text: "Gestionar Horarios" },
     { to: "/alertas", icon: <FaExclamationTriangle />, text: "Enviar Alertas" },
+    { to: "/perfil", icon: <FaUserEdit />, text: "Mi Perfil" },
   ];
 
   return (
